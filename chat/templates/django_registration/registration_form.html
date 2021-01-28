@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block head %}
+<style media="screen">
+    .form-signin {
+      width: 100%;
+      max-width: 600px;
+      padding: 35px;
+      margin: auto;
+    }
+    .form-signin .checkbox {
+      font-weight: 600;
+    }
+    .form-signin .form-control {
+      position: relative;
+      box-sizing: border-box;
+      height: auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .form-signin .form-control:focus {
+      z-index: 6;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<form class="form-signin" method="post" action="{% url 'django_registration_register' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-lg btn-primary btn-block mt-8" value='Register' />
+</form>
+{% endblock %}
+
+
