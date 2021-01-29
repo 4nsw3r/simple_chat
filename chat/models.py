@@ -1,12 +1,17 @@
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 
+
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
-    bl = models.ManyToManyField(User, blank=True, related_name='blacklist')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bl = models.ManyToManyField(User, blank=True, symmetrical=False, related_name='blacklist')
 
     def __str__(self):
         return self.user.username
+
+
+# User.userprofile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+
 
 class Message(models.Model):
 

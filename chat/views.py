@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import ListView, FormView
 from django.views.generic.base import TemplateView
 
-from chat.forms import SubscribeConfirm
+# from chat.forms import SubscribeConfirm
 from chat.models import Message, UserProfile
 
 class SearchView(ListView):
@@ -71,17 +71,19 @@ class MessagesAPIView(View):
         return JsonResponse(list(result), safe=False)
 
 
-class Subscribe(FormView):
-
-    form_class = SubscribeConfirm
-    template_name = 'subscribe_confirm.html'
-    success_url = reverse_lazy('authors')
-
-    def form_valid(self, form):
-        bl_id = self.kwargs['user_id']
-        user_id = self.request.user.id
-        subscriber = UserProfile.objects.get(pk=user_id)
-        author = UserProfile.objects.get(pk=bl_id)
-        author.subscribe.add(subscriber)
-        author.save()
-        return super(Subscribe, self).form_valid(form)
+# class AddToBlacklist(View):
+#     def get(self, request, user_name):
+#         self_user = User.objects.get(username=user_name)
+#         block_init = User.objects.get(username=self_user)
+#         self_user_info = UserProfile.objects.get(user=request.user)
+#         self_user_info.bl.add(block_init)
+#         return redirect('home')
+#
+#
+# class DelFromBL(View):
+#     def get(self, request, user_name):
+#         self_user = User.objects.get(username=user_name)
+#         block_init = User.objects.get(username=self_user)
+#         self_user_info = UserProfile.objects.get(user=request.user)
+#         self_user_info.bl.remove(block_init)
+#         return redirect('home')

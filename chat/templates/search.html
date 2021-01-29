@@ -19,18 +19,21 @@
 
 
         {% for name in all_search_results %}
-            <div class="col-12 col-md-8">{{ name.username }} -
-                <a href="{% build_chat_url user.username name.username %}">Написать</a>
-                <a href="{% url 'block'  %}"
+            {% if name.id != user.id %}
+
+            <div class="col-12 col-md-8">{{ name.username }}
+                <a href="{% build_chat_url user.username name.username %}">| Написать |</a>
+
             </div>
 
+            {% endif %}
         {% empty %}
             <div class="col col-lg-2">No results found</div>
 
         {% endfor %}
 
 
-<a class="float-center" href="{% url 'home' %}" role="button">Exit</a>
+<a class="float-center" href="{% url 'home' %}" role="button">Назад</a>
 </div>
 
 

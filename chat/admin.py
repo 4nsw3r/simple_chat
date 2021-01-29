@@ -13,11 +13,18 @@ class MessageAdmin(admin.ModelAdmin):
 class UserInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
+    fk_name = 'user'
 
-
-class UserAdmin(UserAdmin):
+###########################
+class CustomUserAdmin(UserAdmin):
     inlines = (UserInline, )
+    list_select_related = ('userprofile', )
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)
